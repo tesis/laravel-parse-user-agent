@@ -35,30 +35,6 @@ Add the service provider to the `providers` array in `config/app.php`:
 
 You can use the `LaravelUserAgentParser` service to parse a user-agent string and get details about the device, OS, and browser.
 
-#### Example
-
-```php
-use Tesis\LaravelUserAgentParser\Services\UserAgentParser;
-
-$userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3';
-
-$parser = new UserAgentParser();
-
-$os = $parser->getOS($userAgent); // "Windows"
-$browserInfo = $parser->getBrowserInfo($userAgent); // ["Chrome", "58.0.3029.110"]
-$deviceType = $parser->getDeviceType($userAgent); // "Desktop"
-
-$parsedData = $parser->parse($userAgent);
-/*
-[
-    'device_type' => 'Desktop',
-    'os' => 'Windows',
-    'browser' => 'Chrome',
-    'browser_version' => '58.0.3029.110'
-]
-*/
-```
-
 ### Handling Requests in a Controller
 
 You can integrate the parser directly into your Laravel controllers to handle HTTP requests:
@@ -69,17 +45,17 @@ use Tesis\LaravelUserAgentParser\Services\UserAgentParser;
 
 class UserAgentController extends Controller
 {
-    protected $parser;
+    protected UserAgentParser $userAgentParser;
 
-    public function __construct(UserAgentParser $parser)
+    public function __construct(UserAgentParser $userAgentParser)
     {
-        $this->parser = $parser;
+        $this->userAgentParser = $userAgentParser;
     }
 
-    public function parse(Request $request)
+    public function index()
     {
-        $userAgent = $request->input('user_agent');
-        $parsedData = $this->parser->parse($userAgent);
+        $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3';
+        $parsedData = $this->userAgentParser->parse($userAgent);
 
         return response()->json($parsedData);
     }
