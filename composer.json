@@ -1,0 +1,43 @@
+{
+    "name": "tesis/laravel-parse-user-agent",
+    "description": "Get OS, device, browser from user_agent",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "stereza",
+            "email": "tereza.simcic@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tesis\\LaravelParseUserAgent\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tesis\\LaravelParseUserAgent\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [],
+            "providers": [
+                "Tesis\\LaravelParseUserAgent\\Providers\\ParseUserAgentServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": false
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.0",
+        "phpunit/phpunit": "9.6.x-dev",
+        "phpstan/phpstan": "1.12.x-dev"
+    },
+    "require": {
+        "illuminate/support": "*"
+    }
+}
